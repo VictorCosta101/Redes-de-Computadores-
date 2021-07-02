@@ -3,7 +3,7 @@
 # DISCIPLINA REDES DE COMPUTADORES (DCA0113)
 # AUTOR: PROF. CARLOS M D VIEGAS (viegas 'at' dca.ufrn.br)
 #
-# SCRIPT: Servidor de sockets TCP modificado para receber texto minusculo do cliente enviar resposta em maiuscula  (python 3)
+# SCRIPT: Servidor de sockets UDP modificado para receber texto minusculo do cliente enviar resposta em maiuscula (python 3)
 #
 
 # importacao das bibliotecas
@@ -13,19 +13,21 @@ import time as tm
 # definicao das variaveis
 serverName = '' # ip do servidor (em branco)
 serverPort = 61000 # porta a se conectar
-serverSocket = socket(AF_INET,SOCK_STREAM) # criacao do socket TCP
-serverSocket.bind((serverName,serverPort)) # bind do ip do servidor com a porta
-serverSocket.listen(1) # socket pronto para 'ouvir' conexoes
-print ('Servidor TCP esperando conexoes na porta %d ...' % (serverPort))
+serverSocket = socket(AF_INET, SOCK_DGRAM) # criacao do socket UDP
+serverSocket.bind((serverName, serverPort)) # bind do ip do servidor com a porta
+print ('Servidor UDP esperando conexoes na porta %d ...' % (serverPort))
+
 while 1:
-  connectionSocket, addr = serverSocket.accept() # aceita as conexoes dos clientes
-  sentence = connectionSocket.recv(1024) # recebe dados do cliente
-  sentence = sentence.decode('utf-8')
-  #capitalizedSentence = sentence.upper() # converte em letras maiusculas
-  if sentence == "time":
-    time = str(tm.ctime())
-    print(time)
-    #print ('Cliente %s enviou: %s, transformando em: %s' % (addr, sentence, capitalizedSentence))
-    connectionSocket.send(time.encode('utf-8')) # envia para o cliente o texto transformado
-  connectionSocket.close() # encerra o socket com o cliente
+    message, clientAddress = serverSocket.recvfrom(2048) # recebe do cliente
+    message = message.decode('utf-8')
+   
+    if message == "time":
+          
+      time = str(tm.ctime())
+
+      serverSocket.sendto(time.encode('utf-8'), clientAddress) # envia a resposta para o cliente
+
+      print("Hora: %s" %(time))
+
+
 serverSocket.close() # encerra o socket do servidor
