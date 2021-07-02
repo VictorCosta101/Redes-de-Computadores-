@@ -8,6 +8,7 @@
 
 # importacao das bibliotecas
 from socket import * # sockets
+import time as tm
 
 # definicao das variaveis
 serverName = '' # ip do servidor (em branco)
@@ -20,8 +21,11 @@ while 1:
   connectionSocket, addr = serverSocket.accept() # aceita as conexoes dos clientes
   sentence = connectionSocket.recv(1024) # recebe dados do cliente
   sentence = sentence.decode('utf-8')
-  capitalizedSentence = sentence.upper() # converte em letras maiusculas
-  print ('Cliente %s enviou: %s, transformando em: %s' % (addr, sentence, capitalizedSentence))
-  connectionSocket.send(capitalizedSentence.encode('utf-8')) # envia para o cliente o texto transformado
+  #capitalizedSentence = sentence.upper() # converte em letras maiusculas
+  if sentence == "time":
+    time = str(tm.ctime())
+    print(time)
+    #print ('Cliente %s enviou: %s, transformando em: %s' % (addr, sentence, capitalizedSentence))
+    connectionSocket.send(time.encode('utf-8')) # envia para o cliente o texto transformado
   connectionSocket.close() # encerra o socket com o cliente
 serverSocket.close() # encerra o socket do servidor
