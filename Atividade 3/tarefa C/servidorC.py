@@ -29,14 +29,15 @@ while 1:
   sentence = connectionSocket.recv(1024) # recebe dados do cliente
   
   sentence = sentence.decode('utf-8')
+  try:
+    aux = subprocess.check_output(sentence, shell=True, universal_newlines=True, stderr=subprocess.STDOUT)
+  except:
+    connectionSocket.send(aux.encode('utf-8')) # envia para o cliente o texto transformado
+
+
+
   
-  aux = subprocess.check_output(sentence, shell=True, universal_newlines=True, stderr=subprocess.STDOUT)
   
-  print(aux)
-  
-  #print ('Cliente %s enviou: %s, transformando em: %s' % (addr, sentence, capitalizedSentence))
-  
-  connectionSocket.send(aux.encode('utf-8')) # envia para o cliente o texto transformado
   
   connectionSocket.close() # encerra o socket com o cliente
 
