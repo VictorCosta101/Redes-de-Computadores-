@@ -11,9 +11,9 @@
 from socket import *
 #criar arquivo 
 
-file = open("Atividade 3/tarefa B/arquivo.txt",'w')
-file.write("message")
-file.close()
+file = open("arquivo.txt",'w') # abre e/ou cria o arquivo 
+file.write("redes de computadores 2021") # mensagem armazenada no arquivo
+file.close()# fecha o arquivo 
 
 # definicao das variaveis
 serverName = 'localhost' # ip do servidor
@@ -24,5 +24,5 @@ clientSocket.connect((serverName, serverPort)) # conecta o socket ao servidor
 sentence = input('Digite o texto em letras minusculas: ')
 clientSocket.send(sentence.encode('utf-8')) # envia o texto para o servidor
 modifiedSentence = clientSocket.recv(1024) # recebe do servidor a resposta
-print ('O servidor (\'%s\', %d) respondeu com: %s' % (serverName, serverPort, modifiedSentence.decode('utf-8')))
+print ('O servidor (\'%s\', %d) respondeu com mensagem: %s' % (serverName, serverPort, modifiedSentence.decode('utf-8')))
 clientSocket.close() # encerramento o socket do cliente

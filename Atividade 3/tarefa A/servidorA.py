@@ -8,7 +8,7 @@
 
 # importacao das bibliotecas
 from socket import * # sockets
-import time as tm
+import time as tm # data e horas 
 
 # definicao das variaveis
 serverName = '' # ip do servidor (em branco)
@@ -23,11 +23,11 @@ while 1:
    
     if message == "time":
           
-      time = str(tm.ctime())
+      time = str(tm.ctime()) # retorna a data e a hora no momento em que a funcao é chamada
 
       serverSocket.sendto(time.encode('utf-8'), clientAddress) # envia a resposta para o cliente
 
-      print("Hora: %s" %(time))
+     
 
 
 serverSocket.close() # encerra o socket do servidor

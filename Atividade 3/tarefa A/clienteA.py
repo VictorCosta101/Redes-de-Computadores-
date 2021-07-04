@@ -20,6 +20,6 @@ clientSocket.sendto(message.encode('utf-8'),(serverName, serverPort)) # envia me
 
 modifiedMessage, serverAddress = clientSocket.recvfrom(2048) # recebe do servidor a resposta
 
-print ('O servidor (\'%s\', %d) respondeu com: %s' % (serverName, serverPort, modifiedMessage.decode('utf-8')))
+print ('O servidor (\'%s\', %d) respondeu com data: %s' % (serverName, serverPort, modifiedMessage.decode('utf-8')))
 
 clientSocket.close() # encerra o socket do cliente

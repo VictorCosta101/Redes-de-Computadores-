@@ -23,15 +23,17 @@ while 1:
   
   sentence = sentence.decode('utf-8')
   
-  if sentence == "obter arquivo.txt":
-      file = open("Atividade 3/tarefa B/arquivo.txt",'r')
-      for linha in file:
+  if sentence == "obter arquivo.txt": # filtro de verificacao 
+      file = open("arquivo.txt",'r') # aquivo que deve ser aberto 
+
+      for linha in file: # lê a mensagem do arquivo 
         linha = linha.rstrip()
-        print(linha)
-      
+        #print(linha)
+      print('Cliente %s enviou: %s, aceito ' % (addr, sentence))    
       connectionSocket.send(linha.encode('utf-8')) # envia para o cliente o texto transformado
   else:
       msg = "Arquivo não existe" 
+      print('Cliente %s enviou: %s, negado ' % (addr, sentence))   
       connectionSocket.send(msg.encode('utf-8')) # envia para o cliente o texto transformado    
   #print ('Cliente %s enviou: %s, transformando em: %s' % (addr, sentence, capitalizedSentence))
  
