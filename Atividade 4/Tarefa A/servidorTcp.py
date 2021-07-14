@@ -10,7 +10,7 @@
 from socket import * # sockets
 
 # definicao das variaveis
-serverName = '' # ip do servidor (em branco)
+serverName = '127.0.0.1' # ip do servidor (em branco)
 serverPort = 65000 # porta a se conectar
 serverSocket = socket(AF_INET,SOCK_STREAM) # criacao do socket TCP
 serverSocket.bind((serverName,serverPort)) # bind do ip do servidor com a porta
